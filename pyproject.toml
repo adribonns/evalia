@@ -1,0 +1,17 @@
+[project]
+name = "eval-ia"
+version = "0.1.0"
+description = "Application Streamlit pour evaluation de solutions"
+authors = [{ name = "Abo", email = "adribonns@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    "streamlit",
+    "plotly",
+    "pandas"
+]
+
+[tool.uv]
+python = "3.11"
+

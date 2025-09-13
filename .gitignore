@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Streamlit
+.streamlit/
+
+# Data files
+data/
+
+# Env (uv met tout dans .venv par défaut)
+.venv/
+
