@@ -8,6 +8,8 @@ __pycache__/
 # Data files
 data/
 
-# Env (uv met tout dans .venv par défaut)
+# Env
 .venv/
 
+#lock files
+uv.lock

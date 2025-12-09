@@ -5,27 +5,27 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 DATA_DIR = "data"
-
-st.title("📊 Visualisation des scénarios")
+st.set_page_config(page_title="Eval-IA", layout="wide")
+st.title("📊 Visualisation des projets")
 
 if not os.path.exists(DATA_DIR) or not os.listdir(DATA_DIR):
-    st.warning("Aucun scénario trouvé.")
+    st.warning("Aucun projet trouvé.")
 else:
-    scenario = st.selectbox("Choisir un scénario", os.listdir(DATA_DIR))
-    scen_dir = os.path.join(DATA_DIR, scenario)
+    projet = st.selectbox("Choisir un projet", os.listdir(DATA_DIR))
+    projet_dir = os.path.join(DATA_DIR, projet)
 
     # Charger description
-    with open(os.path.join(scen_dir, "scenario.json")) as f:
-        scenario_data = json.load(f)
-    st.markdown(f"## {scenario_data['nom']}")
-    st.markdown(scenario_data.get("description", ""))
+    with open(os.path.join(projet_dir, "projet.json")) as f:
+        projet_data = json.load(f)
+    st.markdown(f"## {projet_data['nom']}")
+    st.markdown(projet_data.get("description", ""))
 
     # Charger solutions
     data = []
     details = {}
-    for file in os.listdir(scen_dir):
-        if file.endswith(".json") and file != "scenario.json":
-            with open(os.path.join(scen_dir, file)) as f:
+    for file in os.listdir(projet_dir):
+        if file.endswith(".json") and file != "projet.json":
+            with open(os.path.join(projet_dir, file)) as f:
                 sol = json.load(f)
             df_sol = pd.DataFrame(sol["criteres"])
             means = df_sol.groupby("categorie")["note"].mean().to_dict()
@@ -84,7 +84,7 @@ else:
 
         all_rows = []
         for cat in ["Utile", "Utilisable", "Utilisé"]:
-            for crit in scenario_data.get("criteres", {}).get(cat, []):
+            for crit in projet_data.get("criteres", {}).get(cat, []):
                 row = {"Catégorie": cat, "Critère": crit}
                 for sol_name, df_sol in details.items():
                     note = df_sol[(df_sol["categorie"] == cat) & (df_sol["critere"] == crit)]["note"]
